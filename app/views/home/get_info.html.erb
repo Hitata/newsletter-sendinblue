@@ -41,7 +41,7 @@
         <tr>
           <td>
             <%= i + 1 %>.
-            <input name="engineering[][title]" value="<%= @engineering[i][:title] %>" />
+            <input name="engineering[][title]" value="<%= @engineering[i][:title] %>" size="30" />
             <input name="engineering[][company]" value="<%= @engineering[i][:company] %>"/>
             <input type="hidden" name="engineering[][id]" value="<%= @engineering[i][:id] %>"/>
             <input type="hidden" name="engineering[][lang]" value="<%= @engineering[i][:lang] %>"/>
@@ -49,7 +49,7 @@
           </td>
           <td>
             <%= i + 1 %>.
-            <input name="business[][title]" value="<%= @business[i][:title] %>" />
+            <input name="business[][title]" value="<%= @business[i][:title] %>" size="30" />
             <input name="business[][company]" value="<%= @business[i][:company] %>"/>
             <input type="hidden" name="business[][id]" value="<%= @business[i][:id] %>"/>
             <input type="hidden" name="business[][lang]" value="<%= @business[i][:lang] %>"/>
