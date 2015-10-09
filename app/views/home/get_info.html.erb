@@ -24,9 +24,11 @@
       <% end %>
     </tbody>
   </table>
-  <input type="submit" value="Get Info" />
+  <input type="submit" value="Get Info (English)" name="commit" />
+  <input type="submit" value="Get Info (Japanese)" name="commit" />
 <% end %>
 <%= form_tag '/generate' do %>
+  <input type="hidden" name="lang" value="<%= @lang %>" />
   <table>
     <thead>
       <tr>

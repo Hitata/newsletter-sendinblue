@@ -1,7 +1,7 @@
 <p>Hello and welcome to Hot Jobs! For awesomeness, follow the instructions below:</p>
 <ol>
   <li>Add the job IDs you wanna include in the email</li>
-  <li>Click "Get Info" and modify the data (job title etc) if needed</li>
+  <li>Click "Get Info" for the language you want and modify the data (job title etc) if needed</li>
   <li>Finally, click "Generate" and you'll have the email!</li>
 </ol>
 <% if flash[:alert] %>
@@ -30,5 +30,6 @@
       </tr>
     </tbody>
   </table>
-  <input type="submit" value="Get Info" />
+  <input type="submit" value="Get Info (English)" name="commit" />
+  <input type="submit" value="Get Info (Japanese)" name="commit" />
 <% end %>

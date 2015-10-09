@@ -16,22 +16,28 @@ class HomeController < ApplicationController
       render :index
     end
 
+    if params[:commit].include? 'Japanese'
+      @lang = :ja
+    else
+      @lang = :en
+    end
+
     @engineering, @business = [], []
 
     params[:engineering].each do |id|
-      @engineering << scrape_job(id, :en)
+      @engineering << scrape_job(id, @lang)
     end
 
     params[:business].each do |id|
-      @business << scrape_job(id, :en)
+      @business << scrape_job(id, @lang)
     end
   end
 
   def generate
     if params[:commit] == 'Preview'
-      render :email
+      render "email.#{params[:lang]}"
     else
-      template = IO.read('app/views/home/email.html.erb')
+      template = IO.read("app/views/home/email.#{params[:lang].to_s}.html.erb")
       erb = ERB.new(template)
       @html = erb.result(binding)
     end
