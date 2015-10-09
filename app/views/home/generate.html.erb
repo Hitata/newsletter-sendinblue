@@ -1,0 +1,63 @@
+<p>Hello and welcome to Hot Jobs! For awesomeness, follow the instructions below:</p>
+<ol>
+  <li>Add the job IDs you wanna include in the email</li>
+  <li>Click "Get Info" and modify the data (job title etc) if needed</li>
+  <li>Finally, click "Generate" and you'll have the email!</li>
+</ol>
+<% if flash[:alert] %>
+  <p style="color: red"><%= flash[:alert] %></p>
+<% end %>
+<%= form_tag '/get_info' do %>
+  <table>
+    <thead>
+      <tr>
+        <th>Engineering &amp; Design</th>
+        <th>Business &amp; Marketing</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for i in 0..2 %>
+        <tr>
+          <td><%= i + 1 %>. <input name="engineering[]" value="<%= params[:engineering][i][:id] %>"/></td>
+          <td><%= i + 1 %>. <input name="business[]" value="<%= params[:business][i][:id] %>"/></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <input type="submit" value="Get Info" />
+<% end %>
+<%= form_tag '/generate' do %>
+  <table>
+    <thead>
+      <tr>
+        <th>Engineering &amp; Design</th>
+        <th>Business &amp; Marketing</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for i in 0..2 %>
+        <tr>
+          <td>
+            <%= i + 1 %>.
+            <input name="engineering[][title]" value="<%= params[:engineering][i][:title] %>" />
+            <input name="engineering[][company]" value="<%= params[:engineering][i][:company] %>"/>
+            <input type="hidden" name="engineering[][id]" value="<%= params[:engineering][i][:id] %>"/>
+            <input type="hidden" name="engineering[][lang]" value="<%= params[:engineering][i][:lang] %>"/>
+            <input type="hidden" name="engineering[][logo]" value="<%= params[:engineering][i][:logo] %>"/>
+          </td>
+          <td>
+            <%= i + 1 %>.
+            <input name="business[][title]" value="<%= params[:business][i][:title] %>" />
+            <input name="business[][company]" value="<%= params[:business][i][:company] %>"/>
+            <input type="hidden" name="business[][id]" value="<%= params[:business][i][:id] %>"/>
+            <input type="hidden" name="business[][lang]" value="<%= params[:business][i][:lang] %>"/>
+            <input type="hidden" name="business[][logo]" value="<%= params[:business][i][:logo] %>"/>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <input type="submit" value="Generate" /></br>
+  <textarea rows="20" cols="100"><%= @html %></textarea></br>
+  <input type="submit" name="commit" value="Preview" target="_blank" />
+<% end %>
