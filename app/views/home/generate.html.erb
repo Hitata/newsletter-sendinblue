@@ -59,6 +59,34 @@
       <% end %>
     </tbody>
   </table>
+  <table>
+    <thead>
+      <tr><th>Event Details</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Title (including date):</td><td><input name="event_title" size="30" value="<%= params[:event_title] %>" /></td>
+      </tr>
+      <tr>
+        <td>URL (for details and RSVP):</td><td><input name="event_url" size="30" value="<%= params[:event_url] %>" /></td>
+      </tr>
+      <tr>
+        <td>Address:</td><td><input name="event_address" size="30" value="<%= params[:event_address] %>" /></td>
+      </tr>
+      <tr>
+        <td>Map URL:</td><td><input name="event_map" size="30" value="<%= params[:event_map] %>" /></td>
+      </tr>
+      <tr>
+        <td>Image (URL):</td><td><input name="event_image" size="30" value="<%= params[:event_image] %>" /></td>
+      </tr>
+      <tr>
+        <td>Date &amp; Time:</td><td><input name="event_date" size="30" value="<%= params[:event_date] %>" /></td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top">Description:</td><td><textarea name="event_description" cols="30" rows="5"><%= params[:event_description] %></textarea></td>
+      </tr>
+    </tbody>
+  </table>
   <input type="submit" value="Generate" /></br>
   <textarea rows="20" cols="100"><%= @html %></textarea></br>
   <input type="submit" name="commit" value="Preview" target="_blank" />

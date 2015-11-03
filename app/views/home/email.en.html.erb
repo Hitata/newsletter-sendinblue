@@ -56,8 +56,8 @@ background-color: #f6f6f6;
       <td class="content-block" style="font-size: 14px; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 0 0 20px; text-align: left; vertical-align: top" align="left" valign="top">
     <table style="-premailer-width: 100%; border-collapse: separate !important; border-spacing: 0; mso-table-lspace: 0pt; mso-table-rspace: 0pt" width="100%">
       <thead><tr>
-<th style="font-size: 14px; text-align: left" align="left">Engineering &amp; Design</th>
-<th style="font-size: 14px; text-align: left" align="left">Business &amp; Marketing</th>
+<th style="font-size: 14px; text-align: left; font-weight: 700" align="left">Engineering &amp; Design</th>
+<th style="font-size: 14px; text-align: left; font-weight: 700" align="left">Business &amp; Marketing</th>
 </tr>
 </thead>
 <tbody>
@@ -103,7 +103,26 @@ background-color: #f6f6f6;
 <% end %>
 </tbody>
     </table></td> 
+    </tr><% if params[:event_title].present? %><tr>
+      <td class="content-block" style="font-size: 14px; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 0 0 20px; text-align: left; vertical-align: top" align="left" valign="top">If you'd like to learn more about startups in Japan and meet likeminded people in the startup community, we'd love to see you at one of our upcoming events!</td> 
     </tr><tr> 
+      <td class="content-block" style="font-size: 14px; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 0 0 5px; text-align: left; vertical-align: top; font-weight: 700" align="left" valign="top"><%= params[:event_title] %></td> 
+    </tr><tr>
+      <td class="content-block" style="font-size: 14px; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 0 0 20px; text-align: left; vertical-align: top" align="left" valign="top">
+        <table>
+          <tbody>
+            <tr>
+              <td style="font-size: 14px; mso-table-lspace: 0pt; mso-table-rspace: 0pt; text-align: left; vertical-align: top; padding-right: 10px" align="left" valign="top"><a href="<%= params[:event_url] %>"><img src="<%= params[:event_image] %>" style="max-height: 150px" /></a></td>
+              <td style="font-size: 14px; mso-table-lspace: 0pt; mso-table-rspace: 0pt; text-align: left; vertical-align: top" align="left" valign="top"><table><tbody>
+                  <tr><td style="font-size: 12px; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 0 5px 0 0; text-align: left; vertical-align: top; color: #999; line-height: 1.2">Location:</td><td style="font-size: 12px; mso-table-lspace: 0pt; mso-table-rspace: 0pt; text-align: left; vertical-align: top; line-height: 1.2"><%= params[:event_address] %> <% if params[:event_map].present? %><a href="<%= params[:event_map] %>">(Map)</a><% end %></td></tr>
+                  <tr><td style="font-size: 12px; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 5px 5px 0 0; text-align: left; vertical-align: top; color: #999; line-height: 1.2">Date:</td><td style="font-size: 12px; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 5px 0 0; text-align: left; vertical-align: top; line-height: 1.2"><%= params[:event_date] %></td></tr>
+                  <tr><td style="font-size: 12px; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 5px 0 0; text-align: left; vertical-align: top; line-height: 1.2" colspan="2"><a href="<%= params[:event_url] %>">Click here for details and RSVP</a></td></tr>
+              </tbody></table><div style="font-size: 12px; line-height: 1.2; margin-left: 2px; margin-top: 5px;"><%= params[:event_description] %></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr><% end %><tr>
       <td class="content-block" style="font-size: 14px; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 0 0 20px; text-align: left; vertical-align: top" align="left" valign="top">If you have any questions or feedback, we will be happy to help at: <a href="mailto:info@justa.io" style="color: #27ae60; text-decoration: underline">info@justa.io</a></td> 
     </tr><tr> 
       <td class="content-block" style="font-size: 14px; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 0 0 20px; text-align: left; vertical-align: top" align="left" valign="top">All the best from the heart of Tokyo,</td> 
