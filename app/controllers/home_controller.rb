@@ -55,7 +55,7 @@ class HomeController < ApplicationController
       job[:lang] = lang
       job[:title] = page.css('.job__title').text
       job[:company] = page.css('.job__company').text
-      job[:logo] = BASE_URL + page.css('.logo__img')[0]['src']
+      job[:logo] = page.css('.logo__img')[0]['src']
     end
   end
 end
