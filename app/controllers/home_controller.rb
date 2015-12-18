@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'digest'
 
 class HomeController < ApplicationController
   BASE_URL = "https://justa.io"
@@ -48,7 +49,8 @@ class HomeController < ApplicationController
   def scrape_job(id, lang)
     lang = lang.to_s
     url = JOB_URL.gsub(/:lang/, lang).gsub(/:id/, id)
-    page = Nokogiri::HTML open(url)
+    hash = Digest::MD5.hexdigest "somethingspecial#{id}"
+    page = Nokogiri::HTML open(url + "?k=" + hash)
 
     {}.tap do |job|
       job[:id] = id
