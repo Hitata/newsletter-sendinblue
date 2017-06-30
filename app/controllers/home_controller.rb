@@ -36,7 +36,8 @@ class HomeController < ApplicationController
 
   def generate
     if params[:commit] == 'Preview'
-      render "email.#{params[:lang]}"
+      # render "email.#{params[:lang]}"
+      render "new_email.en"
     else
       template = IO.read("app/views/home/email.#{params[:lang].to_s}.html.erb")
       erb = ERB.new(template)

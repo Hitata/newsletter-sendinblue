@@ -1,0 +1,58 @@
+nav.navbar.fixed-top.navbar-light.bg-faded
+  a.navbar-brand href="#"
+    img.d-inline-block.align-top src="justa-logo.png" height="30" width="30"
+    | &nbsp;&nbsp;
+    span.text-success Justa
+  button.btn.btn-sm.btn-outline-success type="button" Setting
+.container
+  .row
+    .col
+      .alert.alert-success role="alert"
+        strong Well done!
+        | You successfully read this important alert message.
+      p Hello and welcome to Hot Jobs! For awesomeness, follow the instructions below:
+      ol
+        li Add the job IDs you wanna include in the email
+        li Click "Get Info" for the language you want and modify the data (job title etc) if needed
+        li Finally, click "Generate" and you'll have the email!
+      - if flash[:alert]
+        p style=("color: red") = flash[:alert]
+      = form_tag '/get_info' do
+        table
+          thead
+            tr
+              th Engineering &amp; Design
+              th Business &amp; Marketing
+          tbody
+            tr
+              td
+                | 1.
+                input name="engineering[]" /
+              td
+                | 1.
+                input name="business[]" /
+            tr
+              td
+                | 2.
+                input name="engineering[]" /
+              td
+                | 2.
+                input name="business[]" /
+            tr
+              td
+                | 3.
+                input name="engineering[]" /
+              td
+                | 3.
+                input name="business[]" /
+        input name="commit" type="submit" value=("Get Info (English)") /
+        input name="commit" type="submit" value=("Get Info (Japanese)") /
+  .row
+    .col
+      - for i in 0..10
+        ol
+          li Add the job IDs you wanna include in the email
+          li Click "Get Info" for the language you want and modify the data (job title etc) if needed
+          li Finally, click "Generate" and you'll have the email!
+          li Add the job IDs you wanna include in the email
+          li Click "Get Info" for the language you want and modify the data (job title etc) if needed
