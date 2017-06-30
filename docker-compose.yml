@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  hotjob:
+    container_name: hotjob 
+    build: .
+    image: hotjob_image 
+    command: rails s --binding=0.0.0.0 -p 4000
+    ports:
+      - 4000:4000
+    volumes:
+      - ./:/app
