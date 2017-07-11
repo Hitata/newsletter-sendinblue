@@ -1,0 +1,45 @@
+nav.navbar.navbar-light.bg-faded
+  a.navbar-brand href="#"
+    img.d-inline-block.align-top src="justa-logo.png" height="30" width="30"
+    span.text-success.ml-2 Justa
+  button.btn.btn-sm.btn-outline-success type="button" Setting
+.container
+  .row
+    .col.mt-3
+      .card
+        .card-header
+          h4.card-title =@subject
+        .card-block
+          h5.card-subtitle.mb-2 Featured Jobs
+          hr
+          .row.justify-content-center
+            .col-10
+              .list-group
+                - @featured_jobs.each do |job|
+                  = render "home/block/job_row", job: job
+        .card-block
+          h5.card-subtitle.mb-2 Latest Jobs
+          hr
+          .row.justify-content-center
+            .col-10
+              .list-group
+                - @jobs.each do |job|
+                  = render "home/block/job_row", job: job
+                  
+          p =@scheduled_at
+
+          .form-group.row
+            label.col-2.col-form-label for="example-text-input"  Email Subject
+            .col-10
+              input#example-text-input.form-control type="text" name="subject" placeholder="Ex: Hot jobs"
+          .form-group.row
+            label.col-2.col-form-label for="example-text-input"  Job IDs
+            .col-10
+              input#example-text-input.form-control type="text" name="job_ids" placeholder="Ex: 711, 722, 1029, 1148"
+          .form-group.row
+            label.col-2.col-form-label for="example-search-input" Schedule Date
+            .col-10
+              input#example-search-input.form-control type="datetime-local" name="scheduled_at" value="#{DateTime.now.strftime("%FT%X")}"
+          .form-group.row
+            .offset-2.col-10
+              button.btn.btn-primary.right type="submit"  Submit

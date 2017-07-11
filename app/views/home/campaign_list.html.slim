@@ -1,0 +1,30 @@
+nav.navbar.navbar-light.bg-faded
+  a.navbar-brand href="#"
+    img.d-inline-block.align-top src="justa-logo.png" height="30" width="30"
+    span.text-success.ml-2 Justa
+
+  button.btn.btn-sm.btn-outline-success type="button" Setting
+.container
+  .row
+    .col.mt-3
+      .card
+        .card-header
+          h4.card-title Campaign List
+        .card-block
+          .list-group
+            - @list.each do |c|
+              .list-group-item.list-group-item-action.flex-column.align-items-start
+                .h5.mt-0.mb-1 = c.subject
+                .ml-2.text-muted = c.scheduled_at
+
+
+          #accordion aria-multiselectable="true" role="tablist"
+            - @list.each do |c|
+              .card
+                .card-header role="tab" id="job_#{c.id}"
+                  h5.mb-0
+                    a aria-controls="job_#{c.id}" aria-expanded="true" data-parent="#accordion" data-toggle="collapse" href="#job_#{c.id}" 
+                      = c.subject
+                .collapse.show aria-labelledby="headingOne" role="tabpanel" id="job_#{c.id}" 
+                  .card-block
+                    = c.scheduled_at

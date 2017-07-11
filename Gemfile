@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.1'
 gem 'sass-rails', '~> 5.0'
+gem 'jquery-rails'
+gem 'popper_js', '~> 1.9.9'
 gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
 gem "slim-rails"
 

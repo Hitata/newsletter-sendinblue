@@ -27,26 +27,42 @@ nav.navbar.navbar-light.bg-faded
                     .media-body
                       .d-flex.w-100.justify-content-between
                         h6 = each[:title]
-                        small.text-mute = "id: #{each[:id]}"
+                        small.text-muted = "id: #{each[:id]}"
                       small = each[:company]
   .row
     .col
       .card
         .card-block
-          h4.card-title Card title
-          h6.card-subtitle.mb-2.text-muted Card subtitle
-          p.card-text Some quick example text to build on the card title and make up the bulk of the card's content.
-          .form-group.row
-            label.col-2.col-form-label for="example-text-input"  Text
-            .col-10
-              input#example-text-input.form-control type="text" value=("Artisanal kale") /
-          .form-group.row
-            label.col-2.col-form-label for="example-search-input"  Search
-            .col-10
-              input#example-search-input.form-control type="datetime-local" value="#{DateTime.now.strftime("%FT%X")}"
+          h4.card-title Generate Hot jobs
+          h6.card-subtitle.mb-2.text-muted Bi-weekly newsletter send to Justa Emailing List
+          - template_subject = (@form_input.present? ? @form_input[:subject] : "Latest Jobs on Justa - #{DateTime.now.strftime('%b %e, %Y')}")
+          hr
+          = form_tag get_info_path
+            .form-group.row
+              label.col-2.col-form-label for="example-text-input"  Email Subject
+              .col-10
+                = hidden_field_tag 'date_id', DateTime.now.strftime('%Y%m%e')
+                = text_field_tag 'subject', template_subject, placeholder: "Ex: Hot jobs", class: "form-control"
+            .form-group.row class=("has-danger" if flash[:error_featured_job_ids].present?)
+              label.col-2.col-form-label for="example-text-input"  Featured Job IDs
+              .col-10
+                input#featured_job_ids.form-control class=("form-control-danger" if flash[:error_featured_job_ids].present?) type="text" name="featured_job_ids" value=(@form_input[:featured_job_ids] if @form_input.present?) placeholder="Ex: 711"
+                - if flash[:error_featured_job_ids]
+                  .form-control-feedback = flash[:error_featured_job_ids]
 
-          a.card-link href="#"  Card link
-          a.card-link href="#"  Another link
+            .form-group.row class=("has-danger" if flash[:error_job_ids].present?)
+              label.col-2.col-form-label for="example-text-input"  Job IDs
+              .col-10
+                input#job_ids.form-control class=("form-control-danger" if flash[:error_job_ids].present?) type="text" name="job_ids" value=(@form_input[:job_ids] if @form_input.present?) placeholder="Ex: 711, 722, 1029, 1148"
+                - if flash[:error_job_ids]
+                  .form-control-feedback = flash[:error_job_ids]
+            .form-group.row
+              label.col-2.col-form-label for="example-search-input" Schedule Date
+              .col-10
+                input#example-search-input.form-control type="datetime-local" name="scheduled_at" value="#{DateTime.now.strftime("%FT%X")}"
+            .form-group.row
+              .offset-2.col-10
+                button.btn.btn-primary.right type="submit"  Submit
 
       .alert.alert-success.mt-3 role="alert"
         strong Well done!

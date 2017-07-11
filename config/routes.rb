@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   post '/get_info' => 'home#get_info'
   post '/generate' => 'home#generate'
 
+  get '/campaign_list' => 'home#campaign_list'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

@@ -1,11 +1,14 @@
 require 'open-uri'
 require 'digest'
+require 'json'
 
 class HomeController < ApplicationController
   BASE_URL = "https://justa.io"
-  JOB_URL = BASE_URL + "/:lang/jobs/:id"
+  JOB_URL = BASE_URL + "/v1/jobs/:id"
+  ASSET_URL = "https://d1v8colmz0r37h.cloudfront.net"
 
   def index
+    @form_input = []
     @latest = []
     if params[:get_latest] == "get_info"
       @latest = scrape_latest
@@ -13,29 +16,78 @@ class HomeController < ApplicationController
   end
 
   def get_info
-    params[:engineering].reject! { |id| id.to_i <= 0 }
-    params[:business].reject! { |id| id.to_i <= 0 }
 
-    if params[:engineering].length != 3 || params[:business].length != 3
-      flash[:alert] = 'Please fill out all 6 job IDs :)'
+    @date_id = info_params[:date_id]
+    
+
+    @subject = info_params[:subject]
+    @fids = info_params[:featured_job_ids].split(/,/).map(&:strip)
+    if @fids.empty?
+      flash[:error_featured_job_ids] = "Please type in a usuable Featured Job ID"
+    end
+    @ids = info_params[:job_ids].split(/,/).map!(&:strip)
+    if @ids.empty?
+      flash[:error_job_ids] = "Please type in a usuable Job ID"
+    end
+
+    @scheduled_at = info_params[:scheduled_at]
+
+    @featured_jobs = @fids.map do |id|
+      job = api_job(id)
+      if job.empty?
+        flash[:error_featured_job_ids] = "<a href='#{JOB_URL.gsub(/:id/, id)}'>Job ##{id}</a> is not found. Please find a usuable ID".html_safe
+        break
+      end
+      job
+    end
+
+    @jobs = @ids.map do |id|
+      job = api_job(id)
+      if job.empty?
+        flash[:error_job_ids] = "<a href='#{JOB_URL.gsub(/:id/, id)}'>Job ##{id}</a> is not found. Please find a usuable ID".html_safe
+        break
+      end
+      job
+    end
+
+    if flash.present?
+      @latest = []
+      @form_input = info_params
       render :index
     end
+    
+    campaign = Campaign.new
+    campaign.subject = @subject
+    campaign.scheduled_at = @scheduled_at
+    campaign.save
 
-    if params[:commit].include? 'Japanese'
-      @lang = :ja
-    else
-      @lang = :en
-    end
+    # params[:engineering].reject! { |id| id.to_i <= 0 }
+    # params[:business].reject! { |id| id.to_i <= 0 }
 
-    @engineering, @business = [], []
+    # if params[:engineering].length != 3 || params[:business].length != 3
+    #   flash[:alert] = 'Please fill out all 6 job IDs :)'
+    #   render :index
+    # end
 
-    params[:engineering].each do |id|
-      @engineering << scrape_job(id, @lang)
-    end
+    # if params[:commit].include? 'Japanese'
+    #   @lang = :ja
+    # else
+    #   @lang = :en
+    # end
 
-    params[:business].each do |id|
-      @business << scrape_job(id, @lang)
-    end
+    # @engineering, @business = [], []
+
+    # params[:engineering].each do |id|
+    #   @engineering << scrape_job(id, @lang)
+    # end
+
+    # params[:business].each do |id|
+    #   @business << scrape_job(id, @lang)
+    # end
+  end
+
+  def campaign_list
+    @list = Campaign.all.order(id: :desc)
   end
 
   def generate
@@ -51,19 +103,56 @@ class HomeController < ApplicationController
 
   private
 
+  def info_params
+    params.permit(
+      :date_id,
+      :subject,
+      :featured_job_ids,
+      :job_ids,
+      :scheduled_at
+      )
+  end
+
+  def api_job(id)
+    url = JOB_URL.gsub(/:id/, id)
+    res = JSON.parse open(url).read
+    if res.empty?
+      return res
+    end
+
+    {}.tap do |job|
+      job[:id] = res[0]['id']
+      job[:title] = res[0]['title_en']
+      job[:company] = res[0]['company']['name']
+      job[:location] = res[0]['company']['office_location']
+      job[:logo] = ASSET_URL + res[0]['company']['logo']['url']
+      job[:salary] = "Negotiable"
+      if res[0]['show_salary'] == 1
+        job[:salary] = "#{res[0]['salary_min']}¥ - #{res[0]['salary_max']}¥/monthly"
+      end
+      job[:url] = url
+    end
+  end
+
   def scrape_job(id, lang)
     lang = lang.to_s
     url = JOB_URL.gsub(/:lang/, lang).gsub(/:id/, id)
     hash = Digest::MD5.hexdigest "somethingspecial#{id}"
-    page = Nokogiri::HTML open(url + "?k=" + hash)
-
-    {}.tap do |job|
-      job[:id] = id
-      job[:lang] = lang
-      job[:title] = page.css('.job__title').text
-      job[:company] = page.css('.job__company').text
-      job[:logo] = page.css('.logo__img')[0]['src']
+    result = {url: url}
+    begin
+      page = Nokogiri::HTML open(url + "?k=" + hash)
+      result[:data] = {}.tap do |job|
+        job[:id] = id
+        job[:lang] = lang
+        job[:title] = page.css('.job__title').text
+        job[:company] = page.css('.job__company').text
+        job[:logo] = page.css('.logo__img')[0]['src']
+      end
+    rescue Exception => e
+      result[:data] = {}
     end
+
+    result
   end
 
   def scrape_latest
