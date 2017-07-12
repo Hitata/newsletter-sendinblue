@@ -16,10 +16,6 @@ class HomeController < ApplicationController
   end
 
   def get_info
-
-    @date_id = info_params[:date_id]
-    
-
     @subject = info_params[:subject]
     @fids = info_params[:featured_job_ids].split(/,/).map(&:strip)
     if @fids.empty?
@@ -55,11 +51,46 @@ class HomeController < ApplicationController
       @form_input = info_params
       render :index
     end
+
+    # Check according to hidden field date_id  
+    @date_id = info_params[:date_id]
+    @campaign = Campaign.find_by(date_id: @date_id)
+    @campaign = Campaign.new unless @campaign.present?
     
-    campaign = Campaign.new
-    campaign.subject = @subject
-    campaign.scheduled_at = @scheduled_at
-    campaign.save
+    @campaign.date_id = @date_id
+    @campaign.subject = @subject
+    @campaign.scheduled_at = @scheduled_at
+    @campaign.save
+
+    @featured_jobs.each do |job|
+      post = @campaign.posts.find_by(entry_id: job[:id])
+      post = @campaign.posts.new unless post.present?
+
+      post.title = job[:title]
+      post.logo_url = job[:logo]
+      post.company_name = job[:company]
+      post.salary = job[:salary]
+      post.entry_id = job[:id]
+      post.location = job[:location]
+      post.featured = 1
+      post.save
+    end
+
+    @jobs.each do |job|
+      post = @campaign.posts.find_by(entry_id: job[:id])
+      post = @campaign.posts.new unless post.present?
+
+      post.title = job[:title]
+      post.logo_url = job[:logo]
+      post.company_name = job[:company]
+      post.salary = job[:salary]
+      post.entry_id = job[:id]
+      post.location = job[:location]
+      post.featured = 0
+      post.save
+    end
+
+    redirect_to @campaign
 
     # params[:engineering].reject! { |id| id.to_i <= 0 }
     # params[:business].reject! { |id| id.to_i <= 0 }
@@ -84,10 +115,6 @@ class HomeController < ApplicationController
     # params[:business].each do |id|
     #   @business << scrape_job(id, @lang)
     # end
-  end
-
-  def campaign_list
-    @list = Campaign.all.order(id: :desc)
   end
 
   def generate

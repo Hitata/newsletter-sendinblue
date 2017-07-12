@@ -1,7 +1,8 @@
 .list-group-item.list-group-item-action.flex-column.align-items-start: .media
   img.d-flex.mr-3 alt="" src="#{job[:logo]}" width="80" height="80"
   .media-body
-    h5.mt-0.mb-1 = job[:title]
+    h5.mt-0.mb-1
+      = job[:title]
     .ml-2.text-muted
       strong Company: 
       = job[:company]

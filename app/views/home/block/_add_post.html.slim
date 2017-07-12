@@ -1,0 +1,13 @@
+ruby:
+  alert = featured ? "alert": "notice"
+.row.justify-content-end
+  .col-8.mt-5
+    = form_tag posts_path, class: "form-inline float-md-right"
+      .form-group class=("has-danger" if flash[alert].present?)
+        = hidden_field_tag 'campaign_id', campaign_id
+        = hidden_field_tag 'featured', featured
+        input.form-control class=("form-control-danger" if flash[alert].present?) id="job_ids" name="job_id" placeholder="Ex: 1150" type="text"
+        - if flash[alert]
+          .form-control-feedback = flash[alert]
+
+        button.ml-2.btn.btn-primary type="submit" Add Job 

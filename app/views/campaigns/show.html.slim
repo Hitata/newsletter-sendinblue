@@ -1,0 +1,26 @@
+ruby:
+  c = @campaign 
+.container
+  .row
+    .col.mt-3
+      .card
+        .card-header
+          h4.card-title = c.subject
+        .card-block
+          h5.card-title Featured Jobs
+          - c.posts.featured.each do |job|
+            = render "home/block/post_row", job: job
+          - if c.posts.featured.empty?
+            .ml-5.text-danger Please add a Featured Job
+          = render "home/block/add_post", campaign_id: c.id, featured: true
+
+          | &nbsp;
+          h5.card-title Jobs
+          - c.posts.others.each do |job|
+            = render "home/block/post_row", job: job
+          - if c.posts.others.empty?
+            .ml-5.text-danger Please add a Featured Job
+          = render "home/block/add_post", campaign_id: c.id, featured: false
+
+
+          small = c.scheduled_at

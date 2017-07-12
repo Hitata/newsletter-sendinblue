@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170630051258) do
+ActiveRecord::Schema.define(version: 20170711073534) do
 
   create_table "campaigns", force: :cascade do |t|
     t.string   "subject"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20170630051258) do
     t.integer  "sendinblue_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "date_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -30,6 +31,8 @@ ActiveRecord::Schema.define(version: 20170630051258) do
     t.text     "logo_url"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "campaign_id"
+    t.string   "location"
   end
 
 end

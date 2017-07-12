@@ -14,8 +14,8 @@
                       = c.subject
                 .collapse class=("show" if i == 0) aria-labelledby="headingOne" role="tabpanel" id="job_#{c.id}" 
                   .card-block
+                    h6 = link_to "Go to Campaign ##{c.id}", campaign_url(c.id)
                     - c.posts.each do |job|
                       = render "home/block/post_row", job: job
                     | &nbsp;
                     small = c.scheduled_at
-
