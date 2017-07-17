@@ -1,3 +1,5 @@
+require 'open-uri'
+
 module ApiHelper
   BASE_URL = "https://justa.io"
   JOB_URL = BASE_URL + "/v1/jobs/:id"

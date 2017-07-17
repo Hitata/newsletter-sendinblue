@@ -5,7 +5,8 @@ ruby:
     .col.mt-3
       .card
         .card-header
-          h4.card-title = c.subject
+          .row
+            = best_in_place c, :subject, as: :input, class: "input-length"
         .card-block
           h5.card-title Featured Jobs
           - c.posts.featured.each do |job|
@@ -24,3 +25,9 @@ ruby:
 
 
           small = c.scheduled_at
+
+
+css:
+.input-length {
+  width: 400px;
+}

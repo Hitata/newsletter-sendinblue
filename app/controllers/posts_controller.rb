@@ -30,6 +30,9 @@ class PostsController < ApplicationController
     redirect_to @campaign
   end
 
+  def update
+  end
+
   def destroy
     post = Post.find(params[:id])
     post.destroy

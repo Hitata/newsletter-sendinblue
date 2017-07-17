@@ -5,7 +5,7 @@ services:
     container_name: hotjob 
     build: .
     image: hotjob_image 
-    command: rails s --binding=0.0.0.0 -p 4000
+    command: bash -c "rm -rf tmp/pids/server.pid && bundle exec rails s -p 4000 -b '0.0.0.0'"
     ports:
       - 4000:4000
     volumes:

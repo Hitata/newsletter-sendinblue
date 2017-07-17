@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170711073534) do
+ActiveRecord::Schema.define(version: 20170714064031) do
 
   create_table "campaigns", force: :cascade do |t|
     t.string   "subject"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20170711073534) do
     t.string   "company_name"
     t.boolean  "featured"
     t.integer  "entry_id"
-    t.integer  "salary"
+    t.string   "salary"
     t.text     "logo_url"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false

@@ -7,6 +7,8 @@ gem 'popper_js', '~> 1.9.9'
 gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
 gem "slim-rails"
 
+gem 'best_in_place', '~> 3.0.1'
+
 gem 'uglifier', '>= 1.3.0'
 gem 'jbuilder', '~> 2.0'
 
