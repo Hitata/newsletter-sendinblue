@@ -18,13 +18,13 @@ module ApiHelper
     {}.tap do |job|
       job[:id] = res[0]['id']
       job[:title] = res[0]['title_en']
-      if res[0]['title_en'].empty?
+      if res[0]['title_en'].blank?
         job[:title] = res[0]['title_ja']
       end
       job[:company] = res[0]['company']['name']
 
       state = res[0]['address']['state']
-      if res[0]['address']['state'].empty?
+      if res[0]['address']['state'].blank?
         state = res[0]['address']['state_jp']
       end
       country_code = res[0]['company']['country']

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :campaigns do
     member do
       get 'preview'
+      get 'code'
     end
   end
 

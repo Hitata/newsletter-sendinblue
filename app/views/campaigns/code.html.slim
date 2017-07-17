@@ -1,0 +1,8 @@
+.container
+  .row
+    .col.mt-3
+      .card
+        .card-header
+          h5.card-title.mb-2 = @campaign.subject
+        .card-block
+          = text_area_tag "html", @html, cols: 40, rows: 15, class: 'myclass'

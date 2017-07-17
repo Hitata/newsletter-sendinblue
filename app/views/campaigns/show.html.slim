@@ -1,11 +1,18 @@
 ruby:
   c = @campaign 
 .container
+  -if flash[:notice]
+    .row
+      .col.mt-3
+        .alert.alert-success role="alert" 
+          strong Well done!
+          = flash[:notice]
   .row
     .col.mt-3
       .card
         .card-header
-          .row
+          h5.card-title.mb-2
+            strong Email Title: 
             = best_in_place c, :subject, as: :input, class: "input-length"
         .card-block
           h5.card-title Featured Jobs
@@ -22,12 +29,9 @@ ruby:
           - if c.posts.others.empty?
             .ml-5.text-danger Please add a Featured Job
           = render "home/block/add_post", campaign_id: c.id, featured: false
+        hr
+        = link_to "Preview", preview_campaign_path, class: "btn btn-success"
 
 
-          small = c.scheduled_at
 
-
-css:
-.input-length {
-  width: 400px;
-}
+        /small = c.scheduled_at

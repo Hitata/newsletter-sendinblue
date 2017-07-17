@@ -3,6 +3,7 @@ require 'digest'
 require 'json'
 
 class HomeController < ApplicationController
+  include ApiHelper
   BASE_URL = "https://justa.io"
   JOB_URL = BASE_URL + "/v1/jobs/:id"
   ASSET_URL = "https://d1v8colmz0r37h.cloudfront.net"
@@ -138,27 +139,6 @@ class HomeController < ApplicationController
       :job_ids,
       :scheduled_at
       )
-  end
-
-  def api_job(id)
-    url = JOB_URL.gsub(/:id/, id)
-    res = JSON.parse open(url).read
-    if res.empty?
-      return res
-    end
-
-    {}.tap do |job|
-      job[:id] = res[0]['id']
-      job[:title] = res[0]['title_en']
-      job[:company] = res[0]['company']['name']
-      job[:location] = res[0]['company']['office_location']
-      job[:logo] = ASSET_URL + res[0]['company']['logo']['url']
-      job[:salary] = "Negotiable"
-      if res[0]['show_salary'] == 1
-        job[:salary] = "#{res[0]['salary_min']}¥ - #{res[0]['salary_max']}¥/monthly"
-      end
-      job[:url] = url
-    end
   end
 
   def scrape_job(id, lang)

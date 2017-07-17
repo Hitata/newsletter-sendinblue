@@ -367,6 +367,7 @@
                   <![endif]-->
                   <table class="rnb-del-min-width" width="100%" cellpadding="0" border="0" cellspacing="0" bgcolor="#d6d6d6" style="min-width:100%; background-color:#d6d6d6;" name="Layout_19" id="Layout_19">
                     <tbody>
+                      <% @campaign.posts.featured.each do |f| %>
                       <tr>
                         <td class="rnb-del-min-width" align="center" valign="top" bgcolor="#d6d6d6" style="background-color: #d6d6d6;">
                           <table width="100%" border="0" cellpadding="0" cellspacing="0" class="rnb-container" bgcolor="#27ae60" style="background-color: rgb(39, 174, 96); border-radius: 0px; border-collapse: separate; padding-left: 20px; padding-right: 20px;">
@@ -384,7 +385,7 @@
                                             <tbody>
                                               <tr>
                                                 <td width="100%" class="img-block-center" valign="top" align="center">
-                                                  <div style="border-top:0px None #9c9c9c;border-right:0px None #9c9c9c;border-bottom:0px None #9c9c9c;border-left:0px None #9c9c9c;display:inline-block;"><img alt="" border="0" hspace="0" vspace="0" width="130" style="vertical-align:top; width:130px;max-width:130px !important;" class="rnb-col-2-img-side-xl" src="http://img.mailinblue.com/1511269/images/rnb/original/594b818ce694aa51427e84c2.png"></div>
+                                                  <div style="border-top:0px None #9c9c9c;border-right:0px None #9c9c9c;border-bottom:0px None #9c9c9c;border-left:0px None #9c9c9c;display:inline-block;"><img alt="" border="0" hspace="0" vspace="0" width="130" style="vertical-align:top; width:130px;max-width:130px !important;" class="rnb-col-2-img-side-xl" src="<%= f.logo_url %>"></div>
                                                 </td>
                                               </tr>
                                             </tbody>
@@ -395,7 +396,7 @@
                                             <tbody>
                                               <tr>
                                                 <td style="font-size:18px; font-family:Arial,Helvetica,sans-serif; color:#999; text-align:left;">
-                                                  <span style="color:#999; "><span style="color:#FFFFFF;"><strong><span style="font-size:18px;">Front End Developer <span style="border: 0px solid white; border-radius: 0px; font-size: 10px; font-weight: normal; padding: 6px 8px; float: right; background-color: #aeac27;">FEATURED</span></span>
+                                                  <span style="color:#999; "><span style="color:#FFFFFF;"><strong><span style="font-size:18px;"><%= f.title %><span style="border: 0px solid white; border-radius: 0px; font-size: 10px; font-weight: normal; padding: 6px 8px; float: right; background-color: #aeac27;">FEATURED</span></span>
                                                   </span>
                                                   </strong>
                                                   </span>
@@ -407,9 +408,9 @@
                                               </tr>
                                               <tr>
                                                 <td class="rnb-mbl-float-none" style="font-size:14px; font-family:Arial,Helvetica,sans-serif;color:#555;float:right;width:350px;">
-                                                  <div><span style="font-size:13px;"><span style="color:#FFFFFF;"><strong>Company</strong>: Couture<br>
-                                                    <strong>Salary</strong>: 1,500,000&yen;/ month<br>
-                                                    <strong>Location</strong>: Tokyo, Japan</span></span>
+                                                  <div><span style="font-size:13px;"><span style="color:#FFFFFF;"><strong>Company</strong>: <%= f.company_name %><br>
+                                                    <strong>Salary</strong>: <%= f.salary %><br>
+                                                    <strong>Location</strong>: <%= f.location %></span></span>
                                                   </div>
                                                   <div>&nbsp;</div>
                                                 </td>
@@ -424,7 +425,7 @@
                                                       <tr>
                                                         <td width="auto" valign="middle" bgcolor="#999" align="center" height="26" style="font-size:14px; font-family:Arial,Helvetica,sans-serif; text-align:center; color:#ffffff; font-weight:normal; padding-left:14px; padding-right:14px; background-color:#777; border-radius:4px;border-top:0px None #000;border-right:0px None #000;border-bottom:0px None #000;border-left:0px None #000;border-collapse: separate;">
                                                           <span style="color:#ffffff; font-weight:normal;">
-                                  <a style="text-decoration:none; color:#ffffff; font-weight:normal;" target="_blank">Apply Now</a>
+                                  <a style="text-decoration:none; color:#ffffff; font-weight:normal;" target="_blank" href="https://justa.io/jobs/<%= f.entry_id %>">Apply Now</a>
                                   
                                    </span>
                                                         </td>
@@ -448,6 +449,7 @@
                           </table>
                         </td>
                       </tr>
+                      <% end %>
                     </tbody>
                   </table>
                   <!--[if mso 15]>
@@ -489,7 +491,7 @@
                                               </tr>
                                               <tr>
                                                 <td style="font-size:18px;font-family:Arial,Helvetica,sans-serif; color:#999; font-weight:normal; text-align:center;">
-                                                  <span style="color:#999; font-weight:normal;"><strong><span style="font-size:16px;"><span style="color:#FFFFFF;">Latest Jobs on Justa - 6/26</span></span>
+                                                  <span style="color:#999; font-weight:normal;"><strong><span style="font-size:16px;"><span style="color:#FFFFFF;"><%= @campaign.subject %></span></span>
                                                   </strong>
                                                   </span>
                                                 </td>
@@ -582,7 +584,7 @@
                 </div>
               </td>
             </tr>
-            <% @campaign.posts.each do |eng| %>
+            <% @campaign.posts.others.each do |eng| %>
             <tr>
               <td align="center" valign="top" bgcolor="#d6d6d6" style="background-color:#d6d6d6;">
                 <div>
@@ -612,7 +614,7 @@
                                             <tbody>
                                               <tr>
                                                 <td width="100%" class="img-block-center" valign="top" align="center">
-                                                  <div style="border-top:0px none #000;border-right:0px None #000;border-bottom:0px None #000;border-left:0px None #000;display:inline-block;"><a href="https://justa.io/en/jobs/<%= eng[:entry_id] %>" style="color: #27ae60; text-decoration: underline"><img alt="" border="0" hspace="0" vspace="0" width="100" style="vertical-align:top; width:100px;max-width:100px !important;" class="rnb-col-2-img-side-xl" src="<%= eng[:logo_url] %>"></a></div>
+                                                  <div style="border-top:0px none #000;border-right:0px None #000;border-bottom:0px None #000;border-left:0px None #000;display:inline-block;"><a href="https://justa.io/jobs/<%= eng[:entry_id] %>" style="color: #27ae60; text-decoration: underline"><img alt="" border="0" hspace="0" vspace="0" width="100" style="vertical-align:top; width:100px;max-width:100px !important;" class="rnb-col-2-img-side-xl" src="<%= eng[:logo_url] %>"></a></div>
                                                 </td>
                                               </tr>
                                             </tbody>
@@ -647,7 +649,7 @@
                                                       <tr>
                                                         <td width="auto" valign="middle" bgcolor="#999" align="center" height="26" style="font-size:14px; font-family:Arial,Helvetica,sans-serif; text-align:center; color:#ffffff; font-weight:normal; padding-left:14px; padding-right:14px; background-color:#999; border-radius:4px;border-top:0px None #000;border-right:0px None #000;border-bottom:0px None #000;border-left:0px None #000;border-collapse: separate;">
                                                           <span style="color:#ffffff; font-weight:normal;">
-                                  <a style="text-decoration:none; color:#ffffff; font-weight:normal;" target="_blank" href="https://justa.io/en/jobs/<%= eng[:id] %>">Apply Now</a>
+                                  <a style="text-decoration:none; color:#ffffff; font-weight:normal;" target="_blank" href="https://justa.io/jobs/<%= eng[:entry_id] %>">Apply Now</a>
                                   
                                    </span>
                                                         </td>

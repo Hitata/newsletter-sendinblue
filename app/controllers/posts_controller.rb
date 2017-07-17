@@ -31,6 +31,17 @@ class PostsController < ApplicationController
   end
 
   def update
+    post = Post.find params[:id]
+
+    respond_to do |format|
+      if post.update post_params
+        format.html { redirect_to(post, :notice => 'Post was successfully updated.') }
+        format.json { respond_with_bip(post) }
+      # else
+      end
+    end
+    
+
   end
 
   def destroy
@@ -40,5 +51,15 @@ class PostsController < ApplicationController
     redirect_to post.campaign
   end
 
+  private
 
+  def post_params
+    params.required(:post)
+      .permit(
+        :title,
+        :company_name,
+        :salary,
+        :location
+        )
+  end
 end

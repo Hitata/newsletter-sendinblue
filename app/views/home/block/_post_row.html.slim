@@ -1,19 +1,19 @@
 .list-group-item.list-group-item-action.flex-column.align-items-start: .media
   img.d-flex.mr-3 alt="" src="#{job.logo_url}" width="60" height="60"
   .media-body
-    h5.mt-0.mb-1 = job.title
+    h5.mt-0.mb-1 = best_in_place job, :title, as: :input, class: ""
     - if job.featured
     .d-flex.justify-content-between
       .div
         p.mb-0.text-muted
           strong Company: 
-          = job.company_name
+          = best_in_place job, :company_name, as: :input, class: ""
         p.mb-0.text-muted
           strong Salary: 
-          = job.salary
+          = best_in_place job, :salary, as: :input, class: ""
         p.mb-0.text-muted
           strong Location: 
-          = job.location
+          = best_in_place job, :location, as: :input, class: ""
       .div
         .text-muted = "ID ##{job.entry_id}"
         = button_to "Remove", job, method: :delete, class: "btn btn-danger btn-sm"

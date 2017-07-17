@@ -1,0 +1,16 @@
+html
+  head
+    title Hot Jobs
+    = stylesheet_link_tag 'application', media: 'all'
+    = csrf_meta_tags
+  body
+    nav.navbar.navbar-light.bg-faded
+      a.navbar-brand href="#"
+        img.d-inline-block.align-top src="justa-logo.png" height="30" width="30"
+        span.text-success.ml-2 Justa
+      .nav-bar.nav
+        = link_to "Copy Code", code_campaign_path, class: "nav-item nav-link btn btn-primary" 
+      button.btn.btn-sm.btn-outline-success type="button" Setting
+
+    = yield
+    = javascript_include_tag 'application'
